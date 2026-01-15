@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Mini ERP{% endblock %}</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f4f6f8;
+        }
+        .navbar {
+            background: #1e293b;
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+        }
+        .container {
+            display: flex;
+        }
+        .sidebar {
+            width: 220px;
+            background: #334155;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .sidebar a, .sidebar button {
+            display: block;
+            color: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+        }
+        .sidebar a:hover, .sidebar button:hover {
+            background: #475569;
+        }
+        .content {
+            flex: 1;
+            padding: 30px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    Mini ERP System
+</div>
+
+<div class="container">
+
+   <div class="sidebar">
+    <a href="{% url 'dashboard' %}">📊 Dashboard</a>
+    <a href="{% url 'products' %}">📦 Products</a>
+    <a href="{% url 'add_product' %}">➕ Add Product</a>
+
+    <div class="logout">
+        <a href="{% url 'logout' %}">🚪 Logout</a>
+    </div>
+</div>
+
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+</div>
+
+</body>
+</html>
