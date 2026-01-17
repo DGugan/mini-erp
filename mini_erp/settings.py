@@ -1,16 +1,22 @@
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "CHANGE_THIS_IN_RAILWAY_ENV"
+# ===============================
+# SECURITY
+# ===============================
+SECRET_KEY = os.environ.get("SECRET_KEY", "unsafe-local-secret-key")
 
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "web-production-33dab.up.railway.app",
-    ".up.railway.app",
+    "mini-erp.onrender.com",
 ]
 
+# ===============================
+# APPLICATION DEFINITION
+# ===============================
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -18,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'core',
 ]
 
@@ -51,6 +58,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mini_erp.wsgi.application'
 
+# ===============================
+# DATABASE
+# ===============================
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -58,6 +68,9 @@ DATABASES = {
     }
 }
 
+# ===============================
+# PASSWORD VALIDATION
+# ===============================
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -65,11 +78,11 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# ======================
-# RAILWAY + MOBILE SAFE
-# ======================
+# ===============================
+# RENDER + HTTPS + CSRF
+# ===============================
 CSRF_TRUSTED_ORIGINS = [
-    "https://web-production-33dab.up.railway.app",
+    "https://mini-erp.onrender.com",
 ]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -78,18 +91,26 @@ SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-# ✅ IMPORTANT: REMOVE SameSite=None
 SESSION_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_SAMESITE = "Lax"
 
+# ===============================
+# INTERNATIONALIZATION
+# ===============================
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+# ===============================
+# STATIC FILES
+# ===============================
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# ===============================
+# AUTH REDIRECTS
+# ===============================
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/login/'
