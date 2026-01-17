@@ -1,13 +1,14 @@
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-nb*1^85o#ama4*2b=68oep=0503e-fyb-6=codx7)7-y*-s4r$'
+
+SECRET_KEY = "CHANGE_THIS_IN_RAILWAY_ENV"
+
 DEBUG = False
+
 ALLOWED_HOSTS = [
     "web-production-33dab.up.railway.app",
     ".up.railway.app",
-    "localhost",
-    "127.0.0.1",
 ]
 
 INSTALLED_APPS = [
@@ -17,9 +18,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'core',
 ]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -29,6 +30,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 ROOT_URLCONF = 'mini_erp.urls'
 
 TEMPLATES = [
@@ -48,62 +50,48 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mini_erp.wsgi.application'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
-# Railway HTTPS settings (REQUIRED for mobile)
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
 
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_SSL_REDIRECT = True
-
+# ======================
+# RAILWAY + MOBILE SAFE
+# ======================
 CSRF_TRUSTED_ORIGINS = [
     "https://web-production-33dab.up.railway.app",
-    "https://*.up.railway.app",
 ]
 
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# ✅ IMPORTANT: REMOVE SameSite=None
+SESSION_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SAMESITE = "Lax"
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
+
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/login/'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# ===============================
-# RAILWAY FINAL MOBILE FIX
-# ===============================
-
-DEBUG = False
-
-ALLOWED_HOSTS = [
-    "web-production-33dab.up.railway.app",
-    ".up.railway.app",
-]
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://web-production-33dab.up.railway.app",
-]
-
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_SSL_REDIRECT = True
-
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
-SESSION_COOKIE_SAMESITE = "None"
-CSRF_COOKIE_SAMESITE = "None"
